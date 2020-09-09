@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import ReactDOM from 'react-dom'
 
 
@@ -14,9 +14,10 @@ const Button = ({opinion_text, onClickHandler, ...props}) =>
 const Statictic = ({text, value, ...props}) =>
 {
   return (
-    <p>
-      {text} {value}
-    </p>
+    <tr>
+      <td>{text}</td> 
+      <td>{value}</td>
+    </tr>
   )
 }
 
@@ -43,8 +44,8 @@ const Statictics = (props)=>
 
   return (
 
-    
-    <>
+    <table>
+    <tbody>
     <Statictic
     text="good"
     value={good}
@@ -72,7 +73,8 @@ const Statictics = (props)=>
     value={getPositiveProportion().toString() + ' %'}
     />
 
-    </>
+    </tbody>
+    </table>
   )
 
 }
