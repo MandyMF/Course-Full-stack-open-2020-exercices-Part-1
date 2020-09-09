@@ -20,6 +20,29 @@ const ClassificationCounterInfo = ({opinion_text, counter, ...props}) =>
   )
 }
 
+const StaticticsInfo = ({opinion_counters, ...props})=>
+{
+  const getAverage = () => {
+    return (opinion_counters.good + opinion_counters.bad*-1)/(opinion_counters.good + opinion_counters.neutral + opinion_counters.bad)
+  }
+
+  const getPositiveProportion = () =>{
+    return (opinion_counters.good)*100/(opinion_counters.good + opinion_counters.neutral + opinion_counters.bad)
+  }
+
+  return (
+    <>
+    <p>
+      average {getAverage()}
+    </p>
+    <p>
+      positive {getPositiveProportion()} % 
+    </p>
+    </>
+  )
+
+}
+
 
 const App = () => {
   // save clicks of each button to own state
@@ -73,6 +96,15 @@ const App = () => {
       <ClassificationCounterInfo 
         opinion_text="bad"
         counter={bad}
+      />
+
+      <ClassificationCounterInfo 
+        opinion_text="all"
+        counter={good+neutral+bad}
+      />
+
+      <StaticticsInfo
+       opinion_counters={{good,neutral,bad}}
       />
 
     </div>
