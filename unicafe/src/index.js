@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
-const ClassificationCounter = ({opinion_text, onClickHandler, ...props}) =>
+const Button = ({opinion_text, onClickHandler, ...props}) =>
 {
   return (
     <button onClick={onClickHandler}>
@@ -11,17 +11,21 @@ const ClassificationCounter = ({opinion_text, onClickHandler, ...props}) =>
   )
 }
 
-const ClassificationCounterInfo = ({opinion_text, counter, ...props}) =>
+const Statictic = ({text, value, ...props}) =>
 {
   return (
     <p>
-      {opinion_text} {counter}
+      {text} {value}
     </p>
   )
 }
 
-const StaticticsInfo = ({good,neutral,bad, ...props})=>
+const Statictics = (props)=>
 {
+  const good=props.good
+  const neutral=props.neutral
+  const bad=props.bad
+
   const getAverage = () => {
     return (good + bad*-1)/(good + neutral + bad)
   }
@@ -41,28 +45,33 @@ const StaticticsInfo = ({good,neutral,bad, ...props})=>
 
     
     <>
-    <ClassificationCounterInfo 
-    opinion_text="good"
-    counter={good}
+    <Statictic
+    text="good"
+    value={good}
     />
-        <ClassificationCounterInfo 
-    opinion_text="neutral"
-    counter={neutral}
+    <Statictic
+    text="neutral"
+    value={neutral}
     />
-        <ClassificationCounterInfo 
-    opinion_text="bad"
-    counter={bad}
+    <Statictic
+    text="bad"
+    value={bad}
     />
-        <ClassificationCounterInfo 
-    opinion_text="all"
-    counter={good+ neutral+ bad}
+    <Statictic 
+    text="all"
+    value={good+ neutral+ bad}
     />
-    <p>
-      average {getAverage()}
-    </p>
-    <p>
-      positive {getPositiveProportion()} % 
-    </p>
+
+    <Statictic 
+    text="average"
+    value={getAverage()}
+    />
+
+    <Statictic 
+    text="posite"
+    value={getPositiveProportion().toString() + ' %'}
+    />
+
     </>
   )
 
@@ -91,24 +100,24 @@ const App = () => {
     <div>
       <h1>give feedback</h1>
 
-      <ClassificationCounter
+      <Button
       opinion_text="good"
       onClickHandler={setToGood}
       />
 
-    <ClassificationCounter
+    <Button
       opinion_text="neutral"
       onClickHandler={setToNeutral}
       />
 
-      <ClassificationCounter
+      <Button
       opinion_text="bad"
       onClickHandler={setToBad}
       />
 
       <h1>statistics</h1>
 
-      <StaticticsInfo
+      <Statictics
        good={good}
        neutral={neutral}
        bad={bad}
