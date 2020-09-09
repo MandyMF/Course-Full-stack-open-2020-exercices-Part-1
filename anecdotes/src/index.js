@@ -7,25 +7,38 @@ const App = (props) => {
     (anecdotes.map(value => 0))
   )
 
-  
-
-  const selectRandomAnecdote = () =>{
-    setSelected( Math.floor((Math.random()*anecdotes.length)) );
+  const selectRandomAnecdote = () => {
+    setSelected(Math.floor((Math.random() * anecdotes.length)));
   }
 
-  const voteForAnecdote = ()=>{
+  const voteForAnecdote = () => {
     const copy = [...points]
     copy[selected] += 1
     setPoints(copy)
   }
 
+  const getMostVoted = () => {
+    return points.reduce(
+      (acc, cur, idx, src) =>
+        cur > src[acc] ? idx : acc
+      , 0)
+  }
+
   return (
     <div>
-      <p>{props.anecdotes[selected]}</p>
-      <p>has {points[selected]} votes</p>
       <div>
-      <button onClick={voteForAnecdote}>vote</button>
-      <button onClick={selectRandomAnecdote}>next anecdote</button>
+        <h1>Anecdote of the day</h1>
+        <p>{props.anecdotes[selected]}</p>
+        <p>has {points[selected]} votes</p>
+        <div>
+          <button onClick={voteForAnecdote}>vote</button>
+          <button onClick={selectRandomAnecdote}>next anecdote</button>
+        </div>
+      </div>
+      <div>
+        <h1>Anecdote with most votes</h1>
+        <p>{anecdotes[getMostVoted()]}</p>
+        <p>has {points[getMostVoted()]} votes</p>
       </div>
     </div>
   )
