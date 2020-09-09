@@ -30,7 +30,16 @@ const StaticticsInfo = ({good,neutral,bad, ...props})=>
     return (good)*100/(good + neutral + bad)
   }
 
+  if(good+neutral+bad === 0)
+  {
+    return (
+      <p>No feedback given</p>
+    )
+  }
+
   return (
+
+    
     <>
     <ClassificationCounterInfo 
     opinion_text="good"
