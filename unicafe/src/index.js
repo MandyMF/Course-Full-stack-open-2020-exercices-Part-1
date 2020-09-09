@@ -20,18 +20,34 @@ const ClassificationCounterInfo = ({opinion_text, counter, ...props}) =>
   )
 }
 
-const StaticticsInfo = ({opinion_counters, ...props})=>
+const StaticticsInfo = ({good,neutral,bad, ...props})=>
 {
   const getAverage = () => {
-    return (opinion_counters.good + opinion_counters.bad*-1)/(opinion_counters.good + opinion_counters.neutral + opinion_counters.bad)
+    return (good + bad*-1)/(good + neutral + bad)
   }
 
   const getPositiveProportion = () =>{
-    return (opinion_counters.good)*100/(opinion_counters.good + opinion_counters.neutral + opinion_counters.bad)
+    return (good)*100/(good + neutral + bad)
   }
 
   return (
     <>
+    <ClassificationCounterInfo 
+    opinion_text="good"
+    counter={good}
+    />
+        <ClassificationCounterInfo 
+    opinion_text="neutral"
+    counter={neutral}
+    />
+        <ClassificationCounterInfo 
+    opinion_text="bad"
+    counter={bad}
+    />
+        <ClassificationCounterInfo 
+    opinion_text="all"
+    counter={good+ neutral+ bad}
+    />
     <p>
       average {getAverage()}
     </p>
@@ -83,28 +99,10 @@ const App = () => {
 
       <h1>statistics</h1>
 
-      <ClassificationCounterInfo 
-        opinion_text="good"
-        counter={good}
-      />
-
-      <ClassificationCounterInfo 
-        opinion_text="neutral"
-        counter={neutral}
-      />
-
-      <ClassificationCounterInfo 
-        opinion_text="bad"
-        counter={bad}
-      />
-
-      <ClassificationCounterInfo 
-        opinion_text="all"
-        counter={good+neutral+bad}
-      />
-
       <StaticticsInfo
-       opinion_counters={{good,neutral,bad}}
+       good={good}
+       neutral={neutral}
+       bad={bad}
       />
 
     </div>
